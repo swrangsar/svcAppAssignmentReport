@@ -1,0 +1,62 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\title{Report for the Scalable Video Coding application assignment}
+\author{Sai Karthik Vuppalapati (09d07050) \and Satya Naren (09d07051) \and Swrangsar Basumatary (09d07040) \\
+\texttt{swrangsar@iitb.ac.in} \\
+\textbf{Group 21}}
+\date{April 2013}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    This is a report for the Scalable Video Coding application assignment in the course EE 678 Wavelets. Our goal in this assignment is to demonstrate the spatial aspect of video scalability by encoding different spatial video resolutions into a single bitstream.
+\end{abstract}
+
+\section{Introduction}
+
+Spatial Scalability within the H.264/AVC Scalable Video Coding Extension has already been demonstrated\cite{segall2007}. But here we are trying to demonstrate spatial scalability using wavelets because wavelets have the property of being inherently scalable.
+
+In this experiment, we decided to use \emph{three} different spatial resolutions for demonstration. We encoded the three different resolutions at the transmitter side into a single bitstream and transmitted it. At the receiver, we decoded the bitstream to get the resolution required.
+
+\section{Encoding the video}
+
+At first, we resized every frame of the video into a $2^N * 2^N$ square frame where,
+\begin{verbatim}
+    N = floor(log2(max(size(frame))))
+\end{verbatim}
+
+Then we did the following to each frame:
+\begin{enumerate}
+    \item We did a 2-level 2-D wavelet decomposition to get the subbands $A2$, $H2$, $V2$, $D2$, $H1$, $V1$ and $D1$.
+    \item $A2$, the approximation subband, is our base layer. $H2$, $V2$ and $D2$ forms our first enhancement layer. The second enhancement layer is formed by $H1$, $V1$ and $D1$.
+    \item Then we compressed each layer using SPIHT\cite{amirSaid1996} algorithm and quantized them.
+\end{enumerate}
+
+\subsection*{Quantizing method}
+
+We quantized the compressed layers to achieve a peak Signal-to-Noise ratio (PSNR) that was above a user-specified minimum value.
+
+\section{Transmission}
+
+We then arranged every quantized frame so that for every frame the data was arranged in the following manner: the base layer came before the first enhancement layer and the first enhancement layer came before the second enhancement layer. Then we combined all the frames of the video into a single bitstream.
+
+\section{At the receiving end}
+
+At the receiving end, if we want the smallest of the three pre-decided resolutions then we retain only the base layer data of each frame. And if we want the intermediate resolution then we retain the first enhancement layers also. For the maximum resolution, we retain all the layers.
+
+We take the retained data and then decode them to get the output.
+
+\subsection*{Decoding the video}
+
+The decoder takes in the layers of each frame and uncompress them using SPIHT\cite{amirSaid1996} algorithm. The uncompressed layers are combined using 2-D wavelet reconstruction and then resized to a user-specified dimension.
+
+These resized frames together form the output video.
+
+
+\bibliographystyle{plain}
+\bibliography{svcReport}
+
+
+\end{document}

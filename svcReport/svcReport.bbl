@@ -1,0 +1,17 @@
+\begin{thebibliography}{1}
+
+\bibitem{amirSaid1996}
+Amir Said and William~A. Pearlman.
+\newblock A new, fast, and efficient image codec based on set partitioning in
+  hierarchical trees.
+\newblock {\em IEEE Transactions on Circuits and Systems for Video Technology},
+  6(3), 1996.
+
+\bibitem{segall2007}
+C.~Andrew Segall and Gary~J. Sullivan.
+\newblock Spatial scalability within the h.264/avc scalable video coding
+  extension.
+\newblock {\em IEEE Transactions on Circuits and Systems for Video Technology},
+  17(9), September 2007.
+
+\end{thebibliography}
