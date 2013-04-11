@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2013.1.11)  11 APR 2013 19:52
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2013.1.11)  12 APR 2013 00:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -95,48 +95,51 @@ LaTeX Info: Redefining \] on input line 2667.
 (./svcReport.aux)
 \openout1 = `svcReport.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
 
-Underfull \hbox (badness 2050) in paragraph at lines 23--24
+Underfull \hbox (badness 2050) in paragraph at lines 20--21
 \OT1/cmr/m/n/10 Spatial Scal-a-bil-ity within the H.264/AVC Scal-
  []
 
 
-Underfull \hbox (badness 1571) in paragraph at lines 23--24
+Underfull \hbox (badness 1571) in paragraph at lines 20--21
 \OT1/cmr/m/n/10 able Video Cod-ing Ex-ten-sion has al-ready been
- []
-
-
-Underfull \hbox (badness 1888) in paragraph at lines 23--24
-\OT1/cmr/m/n/10 strate spa-tial scal-a-bil-ity us-ing wavelets be-cause
  []
 
 [1{/usr/local/texlive/2012/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
-(./svcReport.bbl) [2
+Underfull \hbox (badness 6157) in paragraph at lines 63--63
+\OT1/cmr/bx/n/14.4 single-layer bit-stream and
+ []
+
+
+Underfull \vbox (badness 5260) has occurred while \output is active []
+
+
+(./svcReport.bbl [2]) [3
 
 ] (./svcReport.aux) ) 
 Here is how much of TeX's memory you used:
- 845 strings out of 493488
- 9436 string characters out of 3141326
+ 843 strings out of 493488
+ 9415 string characters out of 3141326
  64256 words of memory out of 3000000
- 4202 multiletter control sequences out of 15000+200000
- 9706 words of font info for 36 fonts, out of 3000000 for 9000
+ 4201 multiletter control sequences out of 15000+200000
+ 9537 words of font info for 35 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 27i,7n,20p,324b,260s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,7n,20p,577b,256s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/local/texlive/2012/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmbx10.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmbx12.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfo
@@ -147,12 +150,11 @@ m/cmr12.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmr17.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 sy10.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
 i10.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt
-10.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt1
-2.pfb>
-Output written on svcReport.pdf (2 pages, 130914 bytes).
+10.pfb>
+Output written on svcReport.pdf (3 pages, 129734 bytes).
 PDF statistics:
- 55 PDF objects out of 1000 (max. 8388607)
- 39 compressed objects within 1 object stream
+ 54 PDF objects out of 1000 (max. 8388607)
+ 38 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
