@@ -30,13 +30,13 @@ At first, we reshape every frame of the video into a $2^N * 2^N$ square frame wh
 
 Then we do the following to each frame:
 \begin{enumerate}
-    \item We do a 2-level 2D wavelet decomposition to get the subbands $A2$, $H2$, $V2$, $D2$, $H1$, $V1$ and $D1$.
-    \item The approximation subband, $A2$, is our base layer. $H2$, $V2$ and $D2$ form our first enhancement layer. The second enhancement layer is made up of $H1$, $V1$ and $D1$.
-    \item We compress the base layer using the Set Partitioning in Hierarchial Trees (SPIHT) algorithm\cite{amirSaid1996}.
+    \item We do a 2-level 2D wavelet decomposition to get the sub-bands $A2$, $H2$, $V2$, $D2$, $H1$, $V1$ and $D1$.
+    \item The approximation sub-band, $A2$, is our base layer. $H2$, $V2$ and $D2$ form our first enhancement layer. The second enhancement layer is made up of $H1$, $V1$ and $D1$.
+    \item We compress the base layer using the Set Partitioning in Hierarchical Trees (SPIHT) algorithm\cite{amirSaid1996}.
     \item We compress the two enhancement layers by quantizing and then run length encoding them.
 \end{enumerate}
 
-\subsection*{Quantizing the subbands}
+\subsection*{Quantizing the sub-bands}
 
 We quantize the enhancement layers to achieve a peak Signal-to-Noise ratio (PSNR) that is above a user-specified minimum value. The number of quantization levels is chosen such that the PSNR requirement is satisfied. Starting from an initial number of two quantization levels we keep  doubling the number of levels as long as PSNR is below a user-specified value. We double the number of levels instead of multiplying by some other arbitrary factor because we want the quantized values to be in the binary format.
 
@@ -51,9 +51,9 @@ For demonstration purposes, we write the compressed layers into binary files and
 
 At the receiving end, we choose our output video resolution according to the capacity of the channel. The logic used in determining the output resolution is as follows:
 \begin{itemize}
-    \item If the channel can accomodate the bitrate required for the largest resolution, then we go for it. We uncompress the base layer using SPIHT\cite{amirSaid1996} and run length decode the two compressed enhancement layers. And we use 2D wavelet reconstruction to get the frames of the maximum resolution video,
-    \item or else if the channel can accomodate the bitrate required for the intermediate resolution, then we SPIHT uncompress the base layer and run length decode the compressed first enhancement layer. The 2D wavelet reconstruction gives the intermediate resolution video,
-    \item or else if the channel can accomodate the bitrate required for the base resolution, then we uncompress the SPIHT compressed base layer to get the base resolution video,
+    \item If the channel can accommodate the bit rate required for the largest resolution, then we go for it. We uncompress the base layer using SPIHT\cite{amirSaid1996} and run length decode the two compressed enhancement layers. And we use 2D wavelet reconstruction to get the frames of the maximum resolution video,
+    \item or else if the channel can accommodate the bit rate required for the intermediate resolution, then we SPIHT uncompress the base layer and run length decode the compressed first enhancement layer. The 2D wavelet reconstruction gives the intermediate resolution video,
+    \item or else if the channel can accommodate the bit rate required for the base resolution, then we uncompress the SPIHT compressed base layer to get the base resolution video,
     \item otherwise we can choose to quit or use buffering or some other techniques depending on our application.
 \end{itemize}
 
@@ -62,16 +62,16 @@ In the experiment, we reconstruct all the three different video resolutions.
 
 \section{Comparing scalable approach to single-layer approach and simulcast}
 
-In single layer approach only one layer,the highest resolution layer, is SPIHT compressed and transmitted. Therefore there is less information to transmit compared to the scalable case. Thus the bitrate required is relatively low.
+In single layer approach only one layer,the highest resolution layer, is SPIHT compressed and transmitted. Therefore there is less information to transmit compared to the scalable case. Thus the bit rate required is relatively low.
 
-In simulcast all the three different resolutions are SPIHT compressed and transmitted together in a single bitstream without any scalability among the different resolutions. In simulcast there are no enhancement layers or base layers, all the three different resolutions are independent. Therefore there is more data to transmit compared to the scalable case and thus more bitrate is required than in the scalable case.
+In simulcast all the three different resolutions are SPIHT compressed and transmitted together in a single bitstream without any scalability among the different resolutions. In simulcast there are no enhancement layers or base layers, all the three different resolutions are independent. Therefore there is more data to transmit compared to the scalable case and thus more bit rate is required than in the scalable case.
 
 Therefore single layer approach is supposed to be faster than the scalable approach whereas the simulcast is supposed to be slowest of them all\cite{segall2007}.
 
 To show that the speed of the scalable approach lies in between that of single layer approach and simulcast, we demonstrate the single layer approach and the simulcast also.
 
 \subsection*{Single layer approach}
-We compresse all the frames using SPIHT algorithm and transmit them. At the receiving end, we uncompres the frames using the same algorithm to get the output video. Only one resolution, the highest resolution is used in this approach. There are no lower or higher resolution layers.
+We compress all the frames using SPIHT algorithm and transmit them. At the receiving end, we uncompress the frames using the same algorithm to get the output video. Only one resolution, the highest resolution is used in this approach. There are no lower or higher resolution layers.
 
 \subsection*{Simulcast}
 
@@ -80,11 +80,11 @@ Here we have three layers of different resolutions for each frame. The layers ar
 At the receiving end, we uncompress the compressed layers of each frame using SPIHT to get three video sequences of different resolutions.
 
 \subsection*{Observation}
-It turns out that the scalable approach required a bitrate higher than that of single-layer approach and lower than that of simulcast. In other words, the performance observed for the scalable approach is higher than that of simulcast but lower than that of the single-layer solution.
+It turns out that the scalable approach required a bit rate higher than that of single-layer approach and lower than that of simulcast. In other words, the performance observed for the scalable approach is higher than that of simulcast but lower than that of the single-layer solution.
 
 \section{Summary}
 
-Though we have demonstrated the spatial scalability of video for only three different resolutions. This concept can be expanded to any number of resolutions. It is easier to implement dyadic scaling because 2D wavelet decomposition directly gives you a dyadically scaled down version of the original frame.
+Though we have demonstrated the spatial scalability of video for only three different resolutions. This concept can be expanded to any number of resolutions. It is easier to implement dyadic scaling because 2D wavelet decomposition directly gives you a dyadic scaled down version of the original frame.
 
 Furthermore, the performance achieved can be improved by using better compression and quantization techniques.
 
