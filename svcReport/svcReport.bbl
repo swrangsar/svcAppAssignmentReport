@@ -1,5 +1,23 @@
 \begin{thebibliography}{1}
 
+\bibitem{signoroni2007}
+N.~Adami, A.~Signoroni, and R.~Leonardi.
+\newblock State-of-the-art and trends in scalable video compression with
+  wavelet-based approaches.
+\newblock {\em IEEE Transactions on Circuits and Systems for Video Technology},
+  17(9), September 2007.
+
+\bibitem{daubechies1990}
+Ingrid Daubechies.
+\newblock The wavelet transform, time-frequency localization and signal
+  analysis.
+\newblock {\em IEEE Transactions on Information Theory}, 36(5), September 1990.
+
+\bibitem{daubechies1996}
+Ingrid Daubechies.
+\newblock Where do wavelets come from? a personal point of view.
+\newblock {\em Proceedings of the IEEE}, 84(4), April 1996.
+
 \bibitem{amirSaid1996}
 Amir Said and William~A. Pearlman.
 \newblock A new, fast, and efficient image codec based on set partitioning in

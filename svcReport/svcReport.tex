@@ -17,7 +17,7 @@
 
 \section{Introduction}
 
-Spatial Scalability within the H.264/AVC Scalable Video Coding Extension has already been demonstrated\cite{segall2007} by well-known orgnanizations like Motion Pictures Experts Group(MPEG). But here we are trying to demonstrate spatial scalability using wavelets. Wavelets have the beautiful property of being inherently scalable. Many researchers are trying to harness the scalable property of wavelets to improve the efficiency of scalable video coding techniques.
+Spatial Scalability within the H.264/AVC Scalable Video Coding Extension has already been demonstrated\cite{segall2007} by well-known orgnanizations like Motion Pictures Experts Group(MPEG). But here we are trying to demonstrate spatial scalability using wavelets\cite{daubechies1990, daubechies1996}. Wavelets have the beautiful property of being inherently scalable. Many researchers are trying to harness the scalable property of wavelets to improve the efficiency of scalable video coding techniques\cite{signoroni2007}.
 
 In this experiment, we decided to use \emph{three} different spatial resolutions for demonstration. We encoded the three different resolutions at the transmitter side into a single bitstream and transmitted it. At the receiver, we decoded the bitstream to get the resolution required.
 
@@ -70,7 +70,7 @@ First, we run length decoded the retained data. Then we uncompressed them using 
 
 In single layer approach only one layer ,the highest resolution layer, is transmitted without any scaling. And in simulcast all the three different resolutions are transmitted together in a single bitstream without any scalability among the different resolutions. In single layer approach and simulcast, we don't have any sort of enhancement layers and all the layers are self-contained.
 
-Therefore single layer approach is supposed to be faster than the scalable approach whereas the simulcast is supposed to be slowest of them all.
+Therefore single layer approach is supposed to be faster than the scalable approach whereas the simulcast is supposed to be slowest of them all\cite{segall2007}.
 
 To show that the speed of the scalable approach lies in between that of single layer approach and simulcasting, we demonstrated the single layer approach and the simulcast approach also.
 
