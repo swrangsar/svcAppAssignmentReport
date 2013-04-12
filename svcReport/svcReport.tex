@@ -12,7 +12,7 @@
 \maketitle
 
 \begin{abstract}
-    \textbf{This is a report for the Scalable Video Coding Using Wavelets application assignment in the course EE 678 Wavelets. Our goal in this assignment is to demonstrate the spatial aspect of video scalability by encoding different spatial video resolutions into a single bitstream.}
+    \textbf{This is a report for the Scalable Video Coding Using Wavelets application assignment in the course EE 678 Wavelets. Our goal in this assignment is to demonstrate the spatial aspect of video scalability by encoding different spatial video resolutions into a single bitstream in a scalable manner.}
 \end{abstract}
 
 \section{Introduction}
@@ -21,11 +21,11 @@ Spatial Scalability within the H.264/AVC Scalable Video Coding Extension has alr
 
 In this experiment, we decided to use \emph{three} different spatial resolutions for demonstration. We encoded the three different resolutions at the transmitter side into a single bitstream and transmitted it. At the receiver, we decoded the bitstream to get the resolution required.
 
-Also, since the YUV format is known to be more efficient than RGB, we used YUV format for our video frames. Every frame has a Y, U and V component. The size of U and V components were chosen to be half the size of the Y component. This is because the U and V components carry less information compared to the Y component. So, they be can be sampled at a relatively lower rate.
+The YUV format is known to be more efficient than RGB. We used YUV format for our video frames. Every frame has a Y, U and V component. The size of U and V components were chosen to be half the size of the Y component. This is because the U and V components carry less information compared to the Y component meaning they be can be sampled at a relatively lower rate.
 
 \section{Encoding the video}
 
-At first, we resized every frame of the video into a $2^N * 2^N$ square frame where,
+At first, we reshaped every frame of the video into a $2^N * 2^N$ square frame where,
 \begin{verbatim}
     N = floor(log2(max(size(frame))))
 \end{verbatim}
@@ -33,45 +33,51 @@ At first, we resized every frame of the video into a $2^N * 2^N$ square frame wh
 Then we did the following to each frame:
 \begin{enumerate}
     \item We did a 2-level 2-D wavelet decomposition to get the subbands $A2$, $H2$, $V2$, $D2$, $H1$, $V1$ and $D1$.
-    \item $A2$, the approximation subband, is our base layer. $H2$, $V2$ and $D2$ forms our first enhancement layer. The second enhancement layer is formed by $H1$, $V1$ and $D1$.
+    \item $A2$, the approximation subband, is our base layer. $H2$, $V2$ and $D2$ forms our first enhancement layer. The second enhancement layer is made up of $H1$, $V1$ and $D1$.
     \item Then we compressed each layer using SPIHT\cite{amirSaid1996} algorithm and quantized them.
 \end{enumerate}
 
 \subsection*{Quantizing the subbands}
 
-We quantize the compressed layers to achieve a peak Signal-to-Noise ratio (PSNR) that is above a user-specified minimum value. The number of quantization levels is chosen so that the PSNR requirement is satisfied. We start from two quantization levels and keep doubling the number of levels as long as PSNR is below user-specified value. This loop is finite because PSNR increases as we increase the number of quantization levels. Of course, the user-specified value should be below the maximum possible PSNR value, or else we have to run into an infinite loop.
+We quantized the compressed layers to achieve a peak Signal-to-Noise ratio (PSNR) that is above a user-specified minimum value. The number of quantization levels is chosen so that the PSNR requirement is satisfied. We start from two quantization levels and keep doubling the number of levels as long as PSNR is below user-specified value. This loop is finite because PSNR increases with the number of quantization levels. Of course, the user-specified value should be below the maximum possible PSNR value, or else we would run into an infinite loop.
 
 \section{Transmission}
 
 We encoded all the quantized layers of each frame using Run Length Encoding.
 
-We then arranged every encoded frame and so that for every frame the data was arranged in the following order: the base layer, the first enhancement layer and then the second enhancement layer. Then we combined all the frames of the video into a single bitstream.
+We then arranged every encoded frame such that for every frame the data was arranged in the following order: the base layer, the first enhancement layer and then the second enhancement layer. Then we combined all the frames of the video into a single bitstream.
 
-For demonstration purposes, we wrote the encoded layers into binary files instead and read them back at the receiver.
+For demonstration purposes, we wrote the encoded frames into binary files instead and read them back at the receiver.
 
 \section{At the receiving end}
 
-At the receiving end, if we want the smallest of the three pre-decided resolutions then we retain only the base layer data of each frame. And if we want the intermediate resolution then we retain the first enhancement layers also. For the maximum resolution, we retain all the layers.
+At the receiving end, if we want the smallest of the three pre-decided resolutions then we retain only the base layer data of each frame. And if we want the intermediate resolution then we retain the first enhancement layers also. For the maximum resolution, we retain all the three layers.
 
-We take the retained data and then decode them to get the output.
+In the experiment, we reconstructed all the three video resolutions.
 
-\subsection*{Decoding the video}
-First, we run length decode the retained data. Then we uncompress them using SPIHT\cite{amirSaid1996} algorithm. The uncompressed layers are combined using 2-D wavelet reconstruction and then resized to a user-specified dimension.
+\subsection*{Reconstructing the video}
+First, we run length decoded the retained data. Then we uncompressed them using SPIHT\cite{amirSaid1996} algorithm. 
 
-These resized frames together form the output video.
+\begin{itemize}
+    \item For the lowest resolution video, we just uncompressed the compressed base layers.
+
+    \item For the medium resolution video, we added the uncompressed first enhancement layers to the base layers through 2-D wavelet decomposition.
+
+    \item For the highest resolution video, we added the uncompressed second enhancement layers to the medium resolution frames of the medium resolution video, again, using 2-D wavelet reconstruction.
+\end{itemize}
 
 \section{Comparing scalable video to single-layer bitstream and simulcast video}
 
-In single layer approach only one layer most probably the highest resolution layer is transmitted without any scaling. And in simulcast all the three different resolutions are transmitted together without any scaling among them. In single layer approach and simulcast, we don't any sort of enhancement layers, all the layers are self-contained.
+In single layer approach only one layer ,the highest resolution layer, is transmitted without any scaling. And in simulcast all the three different resolutions are transmitted together in a single bitstream without any scalability among the different resolutions. In single layer approach and simulcast, we don't have any sort of enhancement layers and all the layers are self-contained.
 
 Therefore single layer approach is supposed to be faster than the scalable approach whereas the simulcast is supposed to be slowest of them all.
 
-To show that the bitrate of the scalable approach lies in between that of single layer approach and simulcasting, we demonstrated the single layer approach and the simulcast approach also.
+To show that the speed of the scalable approach lies in between that of single layer approach and simulcasting, we demonstrated the single layer approach and the simulcast approach also.
 
 \subsection*{Single layer approach}
-We took the highest resolution layer of each frame and quantized them. Then we did a run length encoding of the frames and transmitted them.
+We compressed the highest resolution layer of each frame using SPIHT algorithm and quantized them. Then we did a run length encoding of the frames and transmitted them.
 
-At the receiving end, the incoming bitstream was run length decoded to get back the output video frames.
+At the receiving end, the incoming bitstream was run length decoded and uncompressed to get back the output video frames.
 
 \subsection*{Simulcasting}
 
@@ -80,8 +86,14 @@ Here we compressed all the three different resolution frames using SPIHT algorit
 At the receiving end, we run length decoded and uncompressed the frames using SPIHT. The output was the video with the required resolution.
 
 \subsection*{Observation}
-The scalable approach turned out to have a bitrate in between that of single-layer approach and simulcast.
+It turned out that the scalable approach required a bitrate higher than that of single-layer approach and lower than that of simulcast approach.
 
+
+\section{Summary}
+
+Though we demonstrated the spatial scalability of video for only three different resolutions. This concept can be expanded to any number of resolutions. It is easier to implement dyadic scaling because 2D wavelet decomposition directly gives you a dyadically scaled down version of the original frame. Though there is a change in the brightness level of the downscaled frame, it can be rectified by multiplying the frame with the appropriate scaling factor.
+
+Further, the bitrates can be improved by using better compression and quantization techniques.
 
 \bibliographystyle{plain}
 \bibliography{svcReport}
