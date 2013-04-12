@@ -16,22 +16,24 @@
 \end{abstract}
 
 \section{Introduction}
-
-Spatial Scalability within the H.264/AVC Scalable Video Coding Extension has already been demonstrated by well-known orgnanizations like Motion Pictures Experts Group(MPEG)\cite{segall2007}. But here we are trying to demonstrate spatial scalability using wavelets\cite{daubechies1990, daubechies1996}. Wavelets have the beautiful property of being inherently scalable. Many researchers are trying to harness the scalable property of wavelets to improve the efficiency of scalable video coding techniques\cite{signoroni2007}.
+A scalable extension to the H.264/AVC video coding standard has been developed within the Joint Video Team (JVT), a joint organization of the ITU-T Video Coding Group (VCEG) and the ISO/IEC Moving Picture Experts Group (MPEG)\cite{segall2007}. Wavelets have the beautiful property of being inherently scalable\cite{daubechies1990, daubechies1996}. Currently there is a lot of research in the area of wavelet-based approach to scalable video coding\cite{signoroni2007}. Though the inherently scalable property of wavelets looks promising, no one has been able to come up with a wavelet-based approach to SVC that is superior in performance to the standard SVC. Here we are trying to demonstrate spatial scalability using a wavelet-based approach.
 
 In this experiment, we decided to use \emph{three} different spatial resolutions for demonstration. At the trasmitting end, we compressed the three different resolutions and combined them into a single bitstream in a scalable way and transmitted it. At the receiver, we uncompressed the bitstream to get the resolution required.
 
 The YUV format is known to be more efficient than RGB. We used YUV format for our video frames. Every frame has a Y, U and V component. The Y stands for the \emph{luminance} (perceptual brightness) component and U and V are the \emph{chrominance} (color) components.  The human eye is more sensitive to the luminance component Y than the chrominance components U and V. It cannot perceive the difference between an image formed by less densely sampled U and V components and the original one as long as our sampling rate is above some threshold. So we can sample the U and V components at a relatively lower rate without degrading the perceptual quality of the video. Here, the size of U and V components were chosen to be half the size of the Y component.
 
+We have three different components Y, U and V in each frame. But from hereon, we shall treat them as one. Because we shall be performing the same operation on all the three components.
+
 \section{Encoding the video}
 
 At first, we reshaped every frame of the video into a $2^N * 2^N$ square frame where $N$ was chosen such that $2^N$ lies somewhere close to the greater of the two dimensions of the original frame.
+
 Then we did the following to each frame:
 \begin{enumerate}
     \item We did a 2-level 2D wavelet decomposition to get the subbands $A2$, $H2$, $V2$, $D2$, $H1$, $V1$ and $D1$.
     \item The approximation subband, $A2$, is our base layer. $H2$, $V2$ and $D2$ form our first enhancement layer. The second enhancement layer is made up of $H1$, $V1$ and $D1$.
     \item We compressed the base layer using the Set Partitioning in Hierarchial Trees (SPIHT) algorithm\cite{amirSaid1996}.
-    \item We compressed the two enhancement layers by quantizing and then run length encoding them. (The SPIHT compressed base layer has only integer values between 0 to 255 with hardly any repetition, so we didn't quantize it nor run length encode it.)
+    \item We compressed the two enhancement layers by quantizing and then run length encoding them.
 \end{enumerate}
 
 \subsection*{Quantizing the subbands}
